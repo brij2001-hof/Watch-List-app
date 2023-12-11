@@ -1,0 +1,56 @@
+﻿@page "/watchlists"
+@model ProjectMangukiyaBrijMukesh.Pages.tblwatch_list.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>My Watch Lists</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+
+                List @Html.DisplayNameFor(model => model.TblWatchList[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TblWatchList[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TblWatchList[0].CreationDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.TblWatchList)
+        {
+            <tr>
+                <td>
+                    <button type="button" class="btn btn-link">
+                        <a href="/watchListDetails/?id=@item.ListId">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </a>
+                    </button>
+                    (stored proc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ListId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ListId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ListId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

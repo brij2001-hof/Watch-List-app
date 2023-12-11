@@ -1,0 +1,19 @@
+﻿@page "/Search"
+@model ProjectMangukiyaBrijMukesh.Pages.SearchModel
+@{
+}
+<h1>Search results for: @ViewData["query"]</h1>
+<div class="text-center">
+    <h1 class="display-6">Popular right NOW</h1>
+    <div class="grid-container">
+        @foreach (var item in Model.popular)
+        {
+            <div class="grid-item">
+                <a href="/details?type=@item.Type&amp;id=@item.Id">
+                    <img src="@item.Poster" alt="img" />
+                    <p>@item.Title</p>
+                </a>
+            </div>
+        }
+    </div>
+</div>

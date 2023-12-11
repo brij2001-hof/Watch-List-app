@@ -18,6 +18,7 @@ namespace ProjectMangukiyaBrijMukesh
             _context = context;
         }
         public SelectList watchlists { get; set; } = default!;
+        public TblWatchListItem TblWatchListItem { get; set; } = default!;
 
         public async Task OnGetAsync(string type, string id)
         {
@@ -26,7 +27,7 @@ namespace ProjectMangukiyaBrijMukesh
             TMDbConfig config = client.GetConfigAsync().Result;
             //System.Diagnostics.Debug.WriteLine(type + id);
 
-            if (type == "tv")
+            if (type == "tv"|| type=="TV Show")
             {
                 int id1 = Convert.ToInt32(id);
                 TvShow show = await client.GetTvShowAsync(id1, TvShowMethods.Images);
@@ -38,14 +39,10 @@ namespace ProjectMangukiyaBrijMukesh
                 ViewData["ReleaseDate"] = show.FirstAirDate.Value.ToString("d");
                 try { ViewData["Runtime"] = show.EpisodeRunTime[0]; }
                 catch { ViewData["Runtime"] = "N/A"; }
-                try
-                {
-                    ViewData["ImdbLink"] = "https://www.imdb.com/title/" + show.ExternalIds.ImdbId;
-                }
-                catch { ViewData["ImdbLink"] = "N/A"; }
+                ViewData["ImdbLink"] = "N/A"; 
                 ViewData["Type"] = "TV Show";
             }
-            else if (type == "movie")
+            else if (type == "movie" || type == "Movie")
             {
                 Movie movie = await client.GetMovieAsync(id, MovieMethods.Images);
                 ViewData["MediaId"] = movie.Id;
@@ -61,12 +58,13 @@ namespace ProjectMangukiyaBrijMukesh
             watchlists = new SelectList(_context.TblWatchLists, "ListId", "Name");
 
         }
-        public TblWatchListItem TblWatchListItem { get; set; } = default!;
 
         public async Task<IActionResult> OnPostAsync()
         {
             string Listid = Request.Form["selected"].ToString();
             TblWatchListItem = new TblWatchListItem();
+            TblWatchListItem.Title = Request.Form["title"].ToString();
+            TblWatchListItem.poster = Request.Form["poster"].ToString();
             TblWatchListItem.ListId = Convert.ToInt32(Listid);
             TblWatchListItem.MediaId = Request.Form["id"].ToString();
             System.Diagnostics.Debug.WriteLine(Request.Form["genreid"]);
@@ -77,7 +75,7 @@ namespace ProjectMangukiyaBrijMukesh
             _context.TblWatchListItems.Add(TblWatchListItem);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/watchlist");
+            return Redirect($"/watchListDetails/?id={TblWatchListItem.ListId}");
         }
     }
 }

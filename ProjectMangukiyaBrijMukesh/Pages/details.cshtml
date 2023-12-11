@@ -4,15 +4,14 @@
 }
 <script type="text/javascript">
     function() {
-        if(@ViewData["ImdbLink"] == "N/A")
-        {
+        if (@ViewData["ImdbLink"] == "N/A") {
             document.getElementById("imdb").hidden = true;
         }
     }
 </script>
 
 <div class="details-container">
-    <img src='@ViewData["Poster"]'  class="poster" />
+    <img src='@ViewData["Poster"]' class="poster" />
     <div class="info">
         <h2>@ViewData["Title"]</h2><br />
         <p><strong>Overview:</strong> @ViewData["Overview"]</p>
@@ -21,11 +20,14 @@
         <a id="imdb" href="@ViewData["ImdbLink"]" target="_blank">View on IMDB</a>
         <form method="post">
             <select name="selected" asp-items="@Model.watchlists">
-                <option value="0">-- Select a watchlist --</option></select>
+                <option value="0">-- Select a watchlist --</option>
+            </select>
             <input type="hidden" name="id" value="@ViewData["MediaId"]" />
             <input type="hidden" name="overview" value="@ViewData["Overview"]" />
             <input type="hidden" name="genreid" value="@ViewData["GenreId"]" />
             <input type="hidden" name="mediaType" value="@ViewData["Type"]" />
+            <input type="hidden" name="poster" value="@ViewData["Poster"]" />
+            <input type="hidden" name="title" value="@ViewData["Title"]" />
 
             <input type="submit" value="Add" asp-page-handler="Submit" />
             <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>

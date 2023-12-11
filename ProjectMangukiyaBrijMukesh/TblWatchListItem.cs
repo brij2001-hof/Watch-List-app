@@ -5,6 +5,8 @@ namespace ProjectMangukiyaBrijMukesh;
 
 public partial class TblWatchListItem
 {
+    public string Title { get; set; }
+    public string poster { get; set; }
     public int ItemId { get; set; }
 
     public int ListId { get; set; }
