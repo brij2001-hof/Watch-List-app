@@ -30,20 +30,7 @@
             <input type="hidden" name="title" value="@ViewData["Title"]" />
 
             <input type="submit" value="Add" asp-page-handler="Submit" />
-            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-            <script type="text/javascript">
-                $("body").on("change", "#ddlCustomers", function () {
-                    $("input[name=CustomerName]").val($(this).find("option:selected").text());
-                });
-            </script>
-            @if (ViewData["Message"] != null)
-            {
-                <script type="text/javascript">
-                    $(function () {
-                        alert("@ViewData["Message"]");
-                    });
-                </script>
-            }
+            
         </form>
     </div>
 </div>

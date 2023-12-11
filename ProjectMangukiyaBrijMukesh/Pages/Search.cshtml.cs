@@ -22,18 +22,12 @@ namespace ProjectMangukiyaBrijMukesh.Pages
             TMDbConfig config = client.GetConfigAsync().Result;
             ViewData["query"] = query;
             SearchContainer<SearchMovie> search = client.SearchMovieAsync(query).Result;
-            //int abc = 0;
-            //foreach (var item in results.Results)
-            //{
-            //    abc++;
-            //    System.Diagnostics.Debug.WriteLine(abc, item.MediaType.ToString());
-            //}
-            foreach(var results in search.Results)
+            foreach (var results in search.Results)
             {
                 if (results.MediaType == MediaType.Movie)
                 {
                     Movie movie = await client.GetMovieAsync(results.Id, MovieMethods.Images);
-                    System.Diagnostics.Debug.WriteLine(  $"{movie.Title}");
+                    System.Diagnostics.Debug.WriteLine($"{movie.Title}");
 
                     foreach (var item in movie.Images.Posters)
                     {

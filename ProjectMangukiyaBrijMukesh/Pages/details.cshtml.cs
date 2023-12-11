@@ -1,7 +1,10 @@
+using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System;
 using System.Reflection.Metadata;
 using TMDbLib.Client;
 using TMDbLib.Objects.General;
@@ -27,7 +30,7 @@ namespace ProjectMangukiyaBrijMukesh
             TMDbConfig config = client.GetConfigAsync().Result;
             //System.Diagnostics.Debug.WriteLine(type + id);
 
-            if (type == "tv"|| type=="TV Show")
+            if (type == "tv" || type == "TV Show")
             {
                 int id1 = Convert.ToInt32(id);
                 TvShow show = await client.GetTvShowAsync(id1, TvShowMethods.Images);
@@ -39,7 +42,7 @@ namespace ProjectMangukiyaBrijMukesh
                 ViewData["ReleaseDate"] = show.FirstAirDate.Value.ToString("d");
                 try { ViewData["Runtime"] = show.EpisodeRunTime[0]; }
                 catch { ViewData["Runtime"] = "N/A"; }
-                ViewData["ImdbLink"] = "N/A"; 
+                ViewData["ImdbLink"] = "N/A";
                 ViewData["Type"] = "TV Show";
             }
             else if (type == "movie" || type == "Movie")
@@ -61,20 +64,30 @@ namespace ProjectMangukiyaBrijMukesh
 
         public async Task<IActionResult> OnPostAsync()
         {
+            string mediaId = Request.Form["id"].ToString();
             string Listid = Request.Form["selected"].ToString();
             TblWatchListItem = new TblWatchListItem();
             TblWatchListItem.Title = Request.Form["title"].ToString();
             TblWatchListItem.poster = Request.Form["poster"].ToString();
             TblWatchListItem.ListId = Convert.ToInt32(Listid);
             TblWatchListItem.MediaId = Request.Form["id"].ToString();
-            System.Diagnostics.Debug.WriteLine(Request.Form["genreid"]);
+            //System.Diagnostics.Debug.WriteLine(Request.Form["genreid"]);
             TblWatchListItem.GenreId = Convert.ToInt32(Request.Form["genreid"]);
             TblWatchListItem.MediaType = Request.Form["mediaType"].ToString();
             TblWatchListItem.Description = Request.Form["overview"].ToString(); ;
             TblWatchListItem.AddedDate = DateOnly.FromDateTime(DateTime.Now);
-            _context.TblWatchListItems.Add(TblWatchListItem);
-            await _context.SaveChangesAsync();
 
+            if (_context.TblWatchListItems.Where(x => x.MediaId == mediaId && x.ListId == Convert.ToInt32(Listid)).ToList().Count > 0)
+            {
+                System.Diagnostics.Debug.WriteLine("Already in watchlist");
+                return Redirect($"/watchListDetails/?id={TblWatchListItem.ListId}");
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("Not in watchlist");
+                _context.TblWatchListItems.Add(TblWatchListItem);
+                await _context.SaveChangesAsync();
+            }
             return Redirect($"/watchListDetails/?id={TblWatchListItem.ListId}");
         }
     }

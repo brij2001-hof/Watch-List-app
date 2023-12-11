@@ -19,7 +19,18 @@ namespace ProjectMangukiyaBrijMukesh.Pages.StoredProcedures
             var listid = new Microsoft.Data.SqlClient.SqlParameter("@listid", id);
             spByWatchList = await _context.spByWatchLists.FromSqlRaw("Exec spByWatchList @listid={0}", listid).ToListAsync();
             spByWatchList.Reverse();
+            ViewData["listid"] = id;
+        }
 
+        public async Task<IActionResult> OnPostAsync()
+        {
+            string mediaid = Request.Form["mediaid"].ToString();
+            string listid = Request.Form["listid"].ToString();
+            //remove
+            var mediaid1 = new Microsoft.Data.SqlClient.SqlParameter("@mediaid", mediaid);
+            var listid1 = new Microsoft.Data.SqlClient.SqlParameter("@listid", listid);
+            await _context.Database.ExecuteSqlRawAsync("Exec spDeleteMedia @mid={0} , @lid={1}", mediaid1, listid1);
+            return Redirect($"/watchListDetails/?id={listid}");
         }
     }
 }

@@ -13,8 +13,6 @@ namespace ProjectMangukiyaBrijMukesh.Pages
         public List<PopularModel> popular = new List<PopularModel>();
         public async Task OnGetAsync(string query)
         {
-
-
             var a = ApiAccess.ApiKey;
             TMDbClient client = new TMDbClient(a);
             TMDbConfig config = client.GetConfigAsync().Result;
@@ -28,7 +26,6 @@ namespace ProjectMangukiyaBrijMukesh.Pages
             //}
             foreach (var results in search.Results)
             {
-
                 TvShow show = await client.GetTvShowAsync(results.Id, TvShowMethods.Images);
                 System.Diagnostics.Debug.WriteLine($"{show.Name}");
                 foreach (var item in show.Images.Posters)
@@ -39,8 +36,6 @@ namespace ProjectMangukiyaBrijMukesh.Pages
                         break;
                     }
                 }
-
-
             }
         }
     }

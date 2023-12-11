@@ -51,6 +51,8 @@ public partial class Bmangukiya1Context : DbContext
 
     public virtual DbSet<VwViolationsByCity> VwViolationsByCities { get; set; }
     public virtual DbSet<spByWatchList> spByWatchLists { get; set; }
+    public virtual DbSet<spByGenre> spByGenres { get; set; }
+    public virtual DbSet<spDeleteMedia> spDeleteMedia { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -58,6 +60,33 @@ public partial class Bmangukiya1Context : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<spDeleteMedia>(entity =>
+        {
+            entity.HasNoKey();
+
+            entity.ToView("spDeleteMedia");
+        });
+
+        modelBuilder.Entity<spByGenre>(entity =>
+        {
+            entity.HasNoKey();
+
+            entity.ToView("spByGenre");
+            entity.Property(e => e.Genre).HasColumnName("Name").HasMaxLength(255);
+
+            entity.Property(e => e.Description).HasColumnName("Description").HasMaxLength(300);
+
+            entity.Property(e => e.ItemId).HasColumnName("ItemID");
+
+            entity.Property(e => e.MediaId).HasColumnName("MediaID");
+
+            entity.Property(e => e.MediaType).HasColumnName("MediaType").HasMaxLength(50);
+
+            entity.Property(e => e.Poster).HasColumnName("poster");
+
+            entity.Property(e => e.Title).HasColumnName("Title").HasMaxLength(50);
+        });
+
         modelBuilder.Entity<spByWatchList>(entity =>
         {
             entity.HasNoKey();
