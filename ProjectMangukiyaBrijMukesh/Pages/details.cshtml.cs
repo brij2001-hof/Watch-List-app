@@ -37,9 +37,12 @@ namespace ProjectMangukiyaBrijMukesh
                 ViewData["MediaId"] = show.Id;
                 ViewData["Title"] = show.Name;
                 ViewData["GenreId"] = show.Genres[0].Id;
+                try { ViewData["backdrop"] = client.GetImageUrl("original", show.Images.Backdrops[0].FilePath); }
+                catch { ViewData["backdrop"] = client.GetImageUrl("original", show.Images.Posters[0].FilePath); }
                 ViewData["Poster"] = client.GetImageUrl("original", show.Images.Posters[0].FilePath).ToString();
                 ViewData["Overview"] = show.Overview;
-                ViewData["ReleaseDate"] = show.FirstAirDate.Value.ToString("d");
+                try { ViewData["ReleaseDate"] = show.FirstAirDate.Value.ToString("d"); }
+                catch { ViewData["ReleaseDate"] = "Not yet released"; }
                 try { ViewData["Runtime"] = show.EpisodeRunTime[0]; }
                 catch { ViewData["Runtime"] = "N/A"; }
                 ViewData["ImdbLink"] = "N/A";
@@ -51,9 +54,12 @@ namespace ProjectMangukiyaBrijMukesh
                 ViewData["MediaId"] = movie.Id;
                 ViewData["GenreId"] = movie.Genres[0].Id;
                 ViewData["Title"] = movie.Title;
+                try { ViewData["backdrop"] = client.GetImageUrl("original", movie.Images.Backdrops[0].FilePath); }
+                                catch { ViewData["backdrop"] = client.GetImageUrl("original", movie.Images.Posters[0].FilePath); }
                 ViewData["Poster"] = client.GetImageUrl("original", movie.Images.Posters[0].FilePath).ToString();
                 ViewData["Overview"] = movie.Overview;
-                ViewData["ReleaseDate"] = movie.ReleaseDate.Value.ToString("d");
+                try { ViewData["ReleaseDate"] = movie.ReleaseDate.Value.ToString("d"); }
+                catch { ViewData["ReleaseDate"] = "N/A"; }
                 ViewData["Runtime"] = movie.Runtime;
                 ViewData["ImdbLink"] = "https://www.imdb.com/title/" + movie.ImdbId;
                 ViewData["Type"] = "Movie";

@@ -23,6 +23,7 @@ body {
     background-color: #01092B;
     margin: 0;
     padding-top: 5px;
+    min-height: 1200px;
 }
 
 header {
@@ -92,11 +93,15 @@ nav {
 }
 
 footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
     background-color: #01092B;
     color: #999;
     text-align: center;
-    padding: 20px 0;
-    border-top: 1px solid #333;
+    border-top: 0.1em solid #333;
 }
 
 .grid-container {
@@ -108,7 +113,6 @@ footer {
 }
 
 .grid-item {
-    
     color: #fff;
     padding: 10px;
     text-align: center;
@@ -129,6 +133,21 @@ footer {
 .poster {
     max-width: 300px;
     margin-right: 20px;
+}
+
+.img-backdrop {
+    position: fixed;
+    -moz-filter: blur(3px);
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    left: 0;
+    right: 0;
+    top: 0;
 }
 
 .info {
@@ -153,7 +172,7 @@ tr:hover {
 }
 
 a {
-    color: #6AC045;
+    color: #75cd33;
 }
 
 .title {
@@ -180,4 +199,16 @@ a {
 .neonText1 {
     color: #fff;
     text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #5271ff, 0 0 82px #5271ff, 0 0 92px #5271ff, 0 0 102px #5271ff, 0 0 151px #5271ff;
+}
+
+.item-image {
+    -moz-filter: drop-shadow(0 0 1em rgb(164, 233, 75));
+    -webkit-filter: drop-shadow(0 0 1em rgb(164, 233, 75));
+    filter: drop-shadow(0 0 1em rgb(164, 233, 75));
+}
+
+.hover-glow:hover, #myPieChart:hover, #barChart:hover, #LineChart:hover {
+    -moz-filter: drop-shadow(0 0 1em rgb(241, 8, 220));
+    -webkit-filter: drop-shadow(0 0 1em rgb(241, 8, 220));
+    filter: drop-shadow(0 0 1em rgb(241, 8, 220));
 }

@@ -15,8 +15,8 @@
     <tbody>
         @foreach (var item in Model.spByWatchList)
         {
-            <tr>
-                <td><img src="@item.Poster" style="width:7.5vw" /></td>
+            <tr class="hover-glow">
+                <td><img class="item-image" src="@item.Poster" style="width:7.5vw" /></td>
                 <td>@item.Title</td>
                 <td>
                     @item.Description
