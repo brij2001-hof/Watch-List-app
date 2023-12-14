@@ -1,0 +1,46 @@
+﻿@page
+@model ProjectMangukiyaBrijMukesh.Pages.ViewPages.VwCountByDateModel
+@{
+}
+<head>
+    <script>google.charts.setOnLoadCallback(VwCountByDate);</script>
+</head>
+<div class="content-wrapper">
+    <h3>Count By Date</h3>
+    <div id="myData">
+        <p>
+
+
+            @Model.json
+
+        </p>
+    </div>
+    <center><div id="LineChart"></div></center>
+    <br />
+    <center><div id="barChart"></div></center>
+    <table class="table">
+<thead>
+            <tr>
+                <th>
+                    Date
+                </th>
+                <th>
+                    no.of media added
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.VwCountByDate)
+            {
+                <tr>
+                    <td>
+                        @item.AddedDate
+                    </td>
+                    <td>
+                        @item.CountDate
+                    </td>
+                </tr>
+            }
+    </table>
+</div>
+

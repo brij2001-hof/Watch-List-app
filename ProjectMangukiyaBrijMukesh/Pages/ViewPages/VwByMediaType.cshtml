@@ -1,0 +1,44 @@
+﻿@page
+@model ProjectMangukiyaBrijMukesh.Pages.ViewPages.VwByMediaTypeModel
+@{
+}
+<head>
+    <script>google.charts.setOnLoadCallback(VwByMediaType);</script>
+</head>
+<div class="content-wrapper">
+    <h3>Media Type Count</h3>
+    <div id="myData">
+        <p>
+            @foreach (var item in Model.VwByMediaType)
+            {
+                @string.Concat(",[\"", @item.MediaType, "\",", @item.Count, "]")
+            }
+        </p>
+    </div>
+    <center><div id="myPieChart"></div></center>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Media Type
+                </th>
+                <th>
+                    Count
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.VwByMediaType)
+            {
+                <tr>
+                    <td>
+                        @item.MediaType
+                    </td>
+                    <td>
+                        @item.Count
+                    </td>
+                </tr>
+            }
+    </table>
+</div>
+

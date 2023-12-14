@@ -1,0 +1,45 @@
+﻿@page 
+@model ProjectMangukiyaBrijMukesh.Pages.ViewPages.VwGenreCountModel
+@{
+}
+<head>
+    <script>google.charts.setOnLoadCallback(VwGenreCount);</script>
+</head>
+<div class="content-wrapper">
+    <h3>Genre Count</h3>
+    <div id="myData">
+        <p>
+            @foreach (var item in Model.VwGenreCount)
+            {
+                @string.Concat(",[\"", @item.Name, "\",", @item.NumberOfMedia, "]")
+            }
+        </p>
+    </div>
+    <center><div id="myPieChart"></div></center>
+    <br />
+    <center><div id="barChart"></div></center>
+    <table class="table">
+<thead>
+            <tr>
+                <th>
+                    Genre
+                </th>
+                <th>
+                    No. of Media
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.VwGenreCount)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.NumberOfMedia
+                    </td>
+                </tr>
+            }
+    </table>
+</div>

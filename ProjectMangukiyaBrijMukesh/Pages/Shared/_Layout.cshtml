@@ -8,18 +8,39 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ProjectMangukiyaBrijMukesh.styles.css" asp-append-version="true" />
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', { packages: ['corechart'] });
+    </script>
+    <script src="~/js/myChart.js"></script>
 </head>
 <body>
     <header>
         <div class="content-wrapper">
             <div class="">
-                <p class="site-title"><a href="~/"><img class="title-image" src="../images/title.png" /></a></p>
+                <p class="site-title"><a href="~/"><img class="title-image" src="../images/title2.png" /></a></p>
             </div>
             <div class="float-right">
                 <nav>
                     <ul id="menu">
                         <li><a href="~/">Home</a></li>
                         <li><a href="~/watchlists">My Lists</a></li>
+                        <li>
+                            <a class="btn-secondary drop dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                Views
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="/ViewPages/VwByMediaType">By MediaType</a></li>
+                                <li><a class="dropdown-item" href="/ViewPages/VwGenreCount">By Genre</a></li>
+                                <li><a class="dropdown-item" href="/ViewPages/VwCountByDate">By Added Date</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="~/spByGenre">Your WatchList by genre</a>
+                        </li>
+
+
+
                         <li style="float:right; padding:1.3vh;">
                             <form id="search" method="get" action="/Search">
                                 <input id="input" type="text" name="query" placeholder="Search for a movie..." />

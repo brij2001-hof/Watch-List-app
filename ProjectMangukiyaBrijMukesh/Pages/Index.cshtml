@@ -6,14 +6,14 @@
 }
 
 <div class="text-center">
-    <h1 class="display-6">Popular right NOW</h1>
+    <h1 class="display-7 neonText">POPULAR RIGHT NOW</h1>
     <div class="grid-container">
         @foreach(var item in Model.Popular)
         {
             <div class="grid-item">
-                 <a href="/details?type=@item.Type&amp;id=@item.Id">
+                <a class="title" href="/details?type=@item.Type&amp;id=@item.Id">
                 <img src="@item.Poster" alt="img" />
-                <p>@item.Title</p>
+                <p class="neonText1">@item.Title</p>
                 </a>
             </div>
         }

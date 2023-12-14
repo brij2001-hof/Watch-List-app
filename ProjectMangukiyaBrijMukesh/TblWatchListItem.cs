@@ -5,8 +5,6 @@ namespace ProjectMangukiyaBrijMukesh;
 
 public partial class TblWatchListItem
 {
-    public string Title { get; set; }
-    public string poster { get; set; }
     public int ItemId { get; set; }
 
     public int ListId { get; set; }
@@ -20,6 +18,10 @@ public partial class TblWatchListItem
     public DateOnly AddedDate { get; set; }
 
     public string? Description { get; set; }
+
+    public string? Title { get; set; }
+
+    public string? Poster { get; set; }
 
     public virtual TblGenre? Genre { get; set; }
 

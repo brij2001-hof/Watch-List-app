@@ -68,7 +68,7 @@ namespace ProjectMangukiyaBrijMukesh
             string Listid = Request.Form["selected"].ToString();
             TblWatchListItem = new TblWatchListItem();
             TblWatchListItem.Title = Request.Form["title"].ToString();
-            TblWatchListItem.poster = Request.Form["poster"].ToString();
+            TblWatchListItem.Poster = Request.Form["poster"].ToString();
             TblWatchListItem.ListId = Convert.ToInt32(Listid);
             TblWatchListItem.MediaId = Request.Form["id"].ToString();
             //System.Diagnostics.Debug.WriteLine(Request.Form["genreid"]);
