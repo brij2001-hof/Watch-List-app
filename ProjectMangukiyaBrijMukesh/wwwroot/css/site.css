@@ -132,6 +132,16 @@ footer {
     
 }
 
+.glow-player{
+    width: 640px;
+    height: 390px;
+    position: relative;
+    left:-10px;
+    -moz-filter: drop-shadow(0 0 1em rgb(164, 233, 75));
+    -webkit-filter: drop-shadow(0 0 1em rgb(164, 233, 75));
+    filter: drop-shadow(0 0 1em rgb(164, 233, 75));
+}
+
 .details-container {
     display: flex;
     align-items: flex-start;

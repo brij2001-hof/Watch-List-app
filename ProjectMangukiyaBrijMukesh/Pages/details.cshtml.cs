@@ -1,11 +1,6 @@
-using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System;
-using System.Reflection.Metadata;
 using TMDbLib.Client;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
@@ -33,7 +28,7 @@ namespace ProjectMangukiyaBrijMukesh
             if (type == "tv" || type == "TV Show")
             {
                 int id1 = Convert.ToInt32(id);
-                TvShow show = await client.GetTvShowAsync(id1, TvShowMethods.Images);
+                TvShow show = await client.GetTvShowAsync(id1, TvShowMethods.Images | TvShowMethods.Videos);
                 ViewData["MediaId"] = show.Id;
                 ViewData["Title"] = show.Name;
                 ViewData["GenreId"] = show.Genres[0].Id;
@@ -47,15 +42,25 @@ namespace ProjectMangukiyaBrijMukesh
                 catch { ViewData["Runtime"] = "N/A"; }
                 ViewData["ImdbLink"] = "N/A";
                 ViewData["Type"] = "TV Show";
+                Random random = new Random();
+                for (int i = 0; i < show.Videos.Results.Count; i++)
+                {
+                    if (show.Videos.Results[i].Site != "YouTube")
+                    {
+                        show.Videos.Results.RemoveAt(i);
+                    }
+                }
+                ViewData["trailer"] = show.Videos.Results[random.Next(show.Videos.Results.Count)].Key;
+                System.Diagnostics.Debug.WriteLine(ViewData["trailer"]);
             }
             else if (type == "movie" || type == "Movie")
             {
-                Movie movie = await client.GetMovieAsync(id, MovieMethods.Images);
+                Movie movie = await client.GetMovieAsync(id, MovieMethods.Images | MovieMethods.Videos);
                 ViewData["MediaId"] = movie.Id;
                 ViewData["GenreId"] = movie.Genres[0].Id;
                 ViewData["Title"] = movie.Title;
                 try { ViewData["backdrop"] = client.GetImageUrl("original", movie.Images.Backdrops[0].FilePath); }
-                                catch { ViewData["backdrop"] = client.GetImageUrl("original", movie.Images.Posters[0].FilePath); }
+                catch { ViewData["backdrop"] = client.GetImageUrl("original", movie.Images.Posters[0].FilePath); }
                 ViewData["Poster"] = client.GetImageUrl("original", movie.Images.Posters[0].FilePath).ToString();
                 ViewData["Overview"] = movie.Overview;
                 try { ViewData["ReleaseDate"] = movie.ReleaseDate.Value.ToString("d"); }
@@ -63,6 +68,7 @@ namespace ProjectMangukiyaBrijMukesh
                 ViewData["Runtime"] = movie.Runtime;
                 ViewData["ImdbLink"] = "https://www.imdb.com/title/" + movie.ImdbId;
                 ViewData["Type"] = "Movie";
+                ViewData["trailer"] = movie.Videos.Results[0].Key;
             }
             watchlists = new SelectList(_context.TblWatchLists, "ListId", "Name");
 

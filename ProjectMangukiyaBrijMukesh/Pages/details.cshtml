@@ -2,13 +2,29 @@
 @model ProjectMangukiyaBrijMukesh.detailsModel
 @{
 }
-<script type="text/javascript">
-    function() {
-        if (@ViewData["ImdbLink"] == "N/A") {
-            document.getElementById("imdb").hidden = true;
-        }
+<script>
+
+    var tag = document.createElement('script');
+
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+    function onYouTubeIframeAPIReady() {
+        console.log('@ViewData["trailer"]');
+        player = new YT.Player('player', {
+            height: '390',
+            width: '640',
+            videoId: '@ViewData["trailer"]',
+            playerVars: {
+                'playsinline': 1
+            }
+
+        });
     }
 </script>
+
 <div class="img-backdrop" style="background-image:url(@ViewData["backdrop"])">
 </div>
 
@@ -18,6 +34,16 @@
     <div class="info">
         <h2 class="neonText1">@ViewData["Title"]</h2><br />
         <p><strong>Overview:</strong> @ViewData["Overview"]</p>
+        @if (ViewData["Type"] == "Movie" && ViewData["trailer"]!= null)
+        {
+            <p><strong>Trailer:</strong></p>
+            <div id="player" class="glow-player"> </div>
+        }
+        else if (ViewData["Type"] == "TV Show" && ViewData["trailer"] != null)
+        {
+            <p><strong>Random Featurette(new on page refresh):</strong></p>
+            <div id="player" class="glow-player"> </div>
+        }
         <p><strong>Release Date:</strong> @ViewData["ReleaseDate"]</p>
         <p><strong>Runtime:</strong> @ViewData["RunTime"] minutes</p>
         <a id="imdb" href="@ViewData["ImdbLink"]" target="_blank">View on IMDB</a>
@@ -33,7 +59,7 @@
             <input type="hidden" name="title" value="@ViewData["Title"]" />
 
             <input type="submit" value="Add" asp-page-handler="Submit" />
-            
+
         </form>
     </div>
 </div>
