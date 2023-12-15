@@ -10,8 +10,11 @@
         {
             <div class="grid-item">
                 <a href="/details?type=@item.Type&amp;id=@item.Id">
-                    <img src="@item.Poster" alt="img" />
-                    <p>@item.Title</p>
+                    <div class="glow-container" style="background-image:url('@item.Poster')">
+                        <img src="@item.Poster" alt="poster" />
+                    </div>
+                    <br />
+                    <p class="neonText1">@item.Title</p>
                 </a>
             </div>
         }

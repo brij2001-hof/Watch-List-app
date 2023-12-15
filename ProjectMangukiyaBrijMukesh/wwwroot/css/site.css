@@ -107,7 +107,7 @@ footer {
 .grid-container {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    grid-gap: 10px;
+    grid-gap: 0px;
     margin-top: 20px;
     margin: 20px -90px auto -90px;
 }
@@ -121,7 +121,16 @@ footer {
     .grid-item img {
         max-width: 100%;
         height: auto;
+        -webkit-backdrop-filter: blur(10px) saturate(5);
+        backdrop-filter: blur(10px) saturate(5);
+        padding: 2.5px;
     }
+
+.glow-container {
+    width: 100%;
+    height: auto;
+    
+}
 
 .details-container {
     display: flex;
@@ -198,7 +207,7 @@ a {
 
 .neonText1 {
     color: #fff;
-    text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #5271ff, 0 0 82px #5271ff, 0 0 92px #5271ff, 0 0 102px #5271ff, 0 0 151px #5271ff;
+    text-shadow: 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #5271ff;
 }
 
 .item-image {
